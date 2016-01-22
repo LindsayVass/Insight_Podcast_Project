@@ -16,5 +16,19 @@ def convert_unicode(input):
 
 # In[ ]:
 
+def check_url(url, num_tries, wait_secs):
+    """Check whether a url is valid. Allows multiple checks with waiting in between."""
+    import time
+    for x in range(0, num_tries):  
+        try:
+            urllib2.urlopen(url)
+            str_error = None
+        except urllib2.URLError as str_error:
+            pass
 
+        if str_error:
+            time.sleep(wait_secs)  
+        else:
+            break
+    return str_error
 
