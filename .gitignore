@@ -3,3 +3,4 @@ pkl/*.pkl
 *.mwb
 *.dict
 *.mm*
+*.lda*
