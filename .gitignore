@@ -4,3 +4,6 @@ pkl/*.pkl
 *.dict
 *.mm*
 *.lda*
+*.DS_Store
+*.lsi*
+*.index
