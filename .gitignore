@@ -8,3 +8,4 @@ pkl/*.pkl
 *.lsi*
 *.index
 flask_app/flask_podcast/static/fonts/*
+simserver/*
