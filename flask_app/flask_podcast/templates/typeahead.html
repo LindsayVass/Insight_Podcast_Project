@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="utf-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="">
+   <link rel="icon" href="../../favicon.ico">
+
+   <title>Starter Template for Bootstrap</title>
+
+   <!-- Bootstrap core CSS -->
+   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+   <!-- Custom styles for this template -->
+   <link href="../static/css/scrollable_menu.css" rel="stylesheet">
+
+
+
+
+
+
+ </head>
+
+ <body>
+
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     <div class="container">
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">thesauropodus</a>
+       </div>
+       <div class="collapse navbar-collapse">
+         <ul class="nav navbar-nav">
+           <li class="active"><a href="#">Home</a></li>
+           <li><a href="#about">About</a></li>
+           <li><a href="#contact">Contact</a></li>
+         </ul>
+       </div><!--/.nav-collapse -->
+     </div>
+   </div>
+<br><br>
+   <div class="container">
+
+    <div class="starter-template">
+        <h2>thesauropodus</h2>
+        <p>a thesaurus for podcasts</p>
+    </div>
+
+
+<div id="remote">
+  <input class="typeahead" id="typeahead" type="text" placeholder="Podcast Name">
+</div>
+
+  </div> <!-- /.container-->
+
+
+   <!-- Bootstrap core JavaScript
+   ================================================== -->
+   <!-- Placed at the end of the document so the pages load faster -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+<script src="../static/js/jquery-1.12.0.min.js"></script>
+
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/typeahead.bundle.js"></script>
+
+<script type="text/javascript">
+
+
+var podcastResults = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: '{{url_for('autocomplete')}}?q=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
+var searchVal;
+$('#remote .typeahead').keyup(function(){ searchVal = $(this).val();} );
+
+$('#remote .typeahead').typeahead({
+  highlight: true,
+  minLength: 3
+  },
+  {  
+  limit: 10,
+  display: 'name',
+  source: podcastResults,
+  templates: {
+    suggestion: function(data){
+      return '<p><a href="{{url_for('podcast_output')}}?id=' + data.id + '">' + data.name + '</a></p>';
+    }, 
+    empty: '<p>No podcasts found.</p>',
+    footer: function() {
+      return '<p><a href="{{url_for('podcast_check_input')}}?podcast_name='+ searchVal + '">View all results</a></p>'
+    }
+  }
+});
+
+</script>
+
+
+
+
+
+<!--
+    <div id="the-basics">
+      <input class="typeahead" type="text" id="autocomplete" placeholder="States of USA">
+    </div>
+<link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet"></link>
+<script src="//code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
+<script type="text/javascript">
+
+$(function() {
+    $("#autocomplete").autocomplete({
+        function(request, response) {
+            $.getJSON("{{url_for('autocomplete')}}",{
+                q: request.term, // in flask, "q" will be the argument to look for using request.args
+            }, function(data) {
+                response(data.matching_results); // matching_results from jsonify
+            });
+        },
+        minLength: 2,
+        select: function(event, ui) {
+            console.log(ui.item.value); // not in your question, but might help later
+        }
+    });
+})
+
+</script>-->
+
+
+</body>
+</html>

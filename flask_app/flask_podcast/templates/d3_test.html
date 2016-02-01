@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<script type="text/javascript" src="../static/js/d3.min.js"></script>
+  	<style type="text/css">
+  	.axis path,
+  	.axis line {
+  		fill: none;
+  		stroke: black;
+  		shape-rendering: crispEdges;
+  	}
+
+  	.axis text {
+  		font-family: sans-serif;
+  		font-size: 11px;
+    }
+
+    #tooltip {
+    	position: absolute;
+    	width: 200px;
+    	height: auto;
+    	padding: 10px;
+    	background-color: white;
+    	-webkit-border-radius: 10px;
+    	-moz-border-radius: 10px;
+    	border-radius: 10px;
+    	-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    	-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    	pointer-events: none;
+    }
+
+    #tooltip.hidden{
+    	display: none;
+    }
+
+    #tooltip p{
+    	margin: 0;
+    	font-family: sans-serif;
+    	font-size: 16px;
+    	line-height: 20px;
+    }
+
+	</style>
+  </head>
+  <body>
+  	<div id="tooltip" class = "hidden">
+  		<p><strong>Important Label Heading</strong></p>
+  		<p><span id="value">100</span>%</p>
+  	</div>
+  </body>
+  	<script type="text/javascript" src="../static/js/scatterplot.js"></script>
+</html>
