@@ -1,96 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-   <meta charset="utf-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <meta name="description" content="">
-   <meta name="author" content="">
-   <link rel="icon" href="../../favicon.ico">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="">
+ <meta name="author" content="">
+ <link rel="icon" href="../../favicon.ico">
 
-   <title>Starter Template for Bootstrap</title>
+ <title>Starter Template for Bootstrap</title>
 
-   <!-- Bootstrap core CSS -->
-   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+ <!-- Bootstrap core CSS -->
+ <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+ <link href="../static/css/lavish-bootstrap.css" rel="stylesheet">
 
- </head>
+</head>
 
- <body>
+<body>
 
-   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     <div class="container">
-       <div class="navbar-header">
-         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-           <span class="sr-only">Toggle navigation</span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-           <span class="icon-bar"></span>
-         </button>
-         <a class="navbar-brand" href="#">thesauropodus</a>
-       </div>
-       <div class="collapse navbar-collapse">
-         <ul class="nav navbar-nav">
-           <li class="active"><a href="#">Home</a></li>
-           <li><a href="#about">About</a></li>
-           <li><a href="#contact">Contact</a></li>
-         </ul>
-       </div><!--/.nav-collapse -->
-     </div>
-   </div>
-<br><br>
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
    <div class="container">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="#">thesauropodus</a>
+     </div>
+     <div class="collapse navbar-collapse">
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="#">Home</a></li>
+         <li><a href="#about">About</a></li>
+         <li><a href="#contact">Contact</a></li>
+       </ul>
+     </div><!--/.nav-collapse -->
+   </div>
+ </div>
+ <br><br>
+ <div class="container">
 
-    <div class="starter-template">
-        <h2>thesauropodus</h2>
-        <p>a thesaurus for podcasts</p>
-    </div>
+  <div class="starter-template">
+    <h2>thesauropodus</h2>
+    <p>a thesaurus for podcasts</p>
+  </div>
 
-    <div class = "container">
+  <div class = "container">
 
-      <form  action="/check_input" method="GET">
-        <div class="form-group">
-          <label for="podcast_name">Podcast Name:</label>
-          <input type="text" id="podcast_name" name='podcast_name' placeholder="e.g. ">
-        </div>
-
-        <div>
-          <button type="submit" class="btn btn-default btn-lg">Find similar podcasts!</button>
-        </div>
-
-      </form>
-    </div>
-
-    <div class="container">
-      <div class="starter-template">
-        <h3>Did you mean...</h3>
-        <p class="lead">
-            {% for result in name_results %}
-            <a href="/output?id={{ result['id'] }}">{{ result['name'] }}</a>
-            <br>
-            {% endfor %}
-        </p>
+    <form  action="/check_input" method="GET">
+      <div class="form-group">
+        <label for="podcast_name">Podcast Name:</label>
+        <input type="text" id="podcast_name" name='podcast_name' placeholder="e.g. ">
       </div>
 
-<!--       <table class="table table-hover">
-      <tr><th>index</th><th>Attendant</th><th>Birth Month</th></tr>
-      {% for birth in births %}
-      <tr><td>{{ birth['index'] }}</td><td>{{ birth['attendant']}}</td><td> {{ birth['podcast_name'] }}</td></tr>
-      {% endfor %}
-      </table> -->
+      <div>
+        <button type="submit" class="btn btn-default btn-lg">Find similar podcasts!</button>
+      </div>
 
+    </form>
+  </div>
 
-     </div><!-- /.container -->
+  <div class="container">
+    <div class="starter-template">
+      <h3>Did you mean...</h3>
+      <p class="lead">
+        {% for result in name_results %}
+        <a href="/output?id={{ result['id'] }}">{{ result['name'] }}</a>
+        <br>
+        {% endfor %}
+      </p>
+    </div>
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+  </div><!-- /.container -->
 
-  </div> <!-- /.container-->
+</div> <!-- /.container-->
 
 
    <!-- Bootstrap core JavaScript
    ================================================== -->
    <!-- Placed at the end of the document so the pages load faster -->
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
-</body>
-</html>
+   <script src="static/js/bootstrap.min.js"></script>
+ </body>
+ </html>

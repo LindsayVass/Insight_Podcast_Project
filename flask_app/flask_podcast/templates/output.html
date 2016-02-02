@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<<<<<<< Updated upstream
  <head>
    <meta charset="utf-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -77,35 +78,114 @@
            <li><a href="#contact">Contact</a></li>
          </ul>
        </div><!--/.nav-collapse -->
+=======
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="">
+ <meta name="author" content="">
+ <link rel="icon" href="../../favicon.ico">
+
+ <title>thesauropodus results</title>
+
+ <!-- Bootstrap core CSS -->
+ <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+ 
+ <!-- Color theme -->
+ <link href="../static/css/lavish-bootstrap.css" rel="stylesheet">
+ 
+ <!-- d3 CSS -->
+ <link href="../static/css/scatterplot.css" rel="stylesheet">
+
+ <!-- table CSS -->
+ <link href="../static/css/table.css" rel="stylesheet">
+
+ 
+ 
+ 
+ <!-- import JSON data -->
+ <script>
+ var mds_data = '{{ podcast_results|tojson }}';
+ mds_data = JSON.parse(mds_data)
+ </script>
+ 
+
+
+</head>
+
+<body>
+
+<!-- Navigation bar -->
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="#">thesauropodus</a>
+     </div>
+     <div class="collapse navbar-collapse">
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="#">Home</a></li>
+         <li><a href="#about">About</a></li>
+         <li><a href="#contact">Contact</a></li>
+       </ul>
+>>>>>>> Stashed changes
      </div>
    </div>
-<br><br>
+ </div>
+ <br><br>
 
-    <div class="container">
-      <div class="starter-template">
-        <h3>Podcasts Like {{ search_name }}:</h3>
+<!-- Table & Scatterplot -->
+ <div class="container">
+  <div class="row">
+    <div class="col-md-6 pull-right">
+      <div id="scatter-title">
+        <h3>Explore the top 100 podcasts</h3>
       </div>
-
-      <div id="scatterplot">
+      <div data-spy="affix" data-offset-top="0" id="scatterplot" style="margin-top:70px">
       </div>
-
+    </div>
+    <div class="col-md-6">
+      <h3>Podcasts Like {{ search_name }}:</h3>
       <table class="table table-hover">
+<<<<<<< Updated upstream
       <tr><th>Similarity</th><th>Name</th><th></th></tr>
       {% for result in podcast_results %}
       <tr><td>{{ result['similarity'] }}</td><td>{{ result['name']}}</td><td><a href="{{ result['view_url'] }}">Listen</a></td></tr>
       {% endfor %}
       </table>
+=======
+        <tbody>
+          <tr><th></th><th>Similarity</th><th>Name</th><th></th></tr>
+          {% for result in podcast_results_no_self %}
+          <tr>
+            <td class="vert-align"><img src="{{result['artwork_url100']}}", height="50", width="50"></td>
+            <td class="vert-align">{{ result['similarity'] }}</td>
+            <td class="vert-align">{{ result['name']}}</td>
+            <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a></td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+>>>>>>> Stashed changes
+
+    </div>
+
+  </div>
 
 
-     </div><!-- /.container -->
 
-
-   <!-- Bootstrap core JavaScript
-   ================================================== -->
-
-</body>
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../static/js/scatterplot.js"></script>
-</html>
+ </body>
+ <!-- Placed at the end of the document so the pages load faster -->
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+ <script src="static/js/bootstrap.min.js"></script>
+ <!-- d3.js -->
+ <script type="text/javascript" src="../static/js/d3.min.js"></script>
+ <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+ <script type="text/javascript" src="../static/js/scatterplot.js"></script>
+ </html>
