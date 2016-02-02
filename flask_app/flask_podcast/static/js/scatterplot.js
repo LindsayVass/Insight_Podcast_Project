@@ -1,29 +1,20 @@
-var dataset = [
-[5,20], 
-[480,90], 
-[250,50], 
-[100,33], 
-[330,95],
-[410,12], 
-[475,44],
-[25,67], 
-[85,21], 
-[220,88],
-[600, 160]
-];
 
-var w = 400;
-var h = 400;
+var w = 500;
+var h = 500;
 var padding = 30;
+var radius = 5;
 
 var xScale = d3.scale.linear()
-					 .domain([0, d3.max(dataset, function (d) { return d[0]; })])
+					 .domain([d3.min(mds_data, function (d) { return d.x_coord; }),
+					 		  d3.max(mds_data, function (d) { return d.x_coord; }) ])
 					 .range([padding, w - padding * 2]);
 
 var yScale = d3.scale.linear()
-					 .domain([0, d3.max(dataset, function (d) { return d[1]; })])
+					 .domain([d3.min(mds_data, function (d) { return d.y_coord; }),
+					 		  d3.max(mds_data, function (d) { return d.y_coord; }) ])
 					 .range([h - padding, padding]);
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 var rScale = d3.scale.linear()
 					 .domain([0, d3.max(dataset, function (d) { return d[1]; })])
@@ -35,6 +26,11 @@ var tip = d3.tip()
 	.html(function(d) {
 		return d.name;
 	});
+=======
+// var rScale = d3.scale.linear()
+// 					 .domain([0, d3.max(mds_data, function (d) { return d[1]; })])
+// 					 .range([2, 5]);
+>>>>>>> 24be3cb... fix simserver clusterfuck
 
 var svg = d3.select("#scatterplot")
 			.append("svg")
@@ -46,9 +42,10 @@ svg.call(tip);
 
 
 var circles = svg.selectAll("circle")
-	.data(dataset)
+	.data(mds_data)
 	.enter()
 	.append("circle")
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 	.attr("cx", function (d) { return xScale(d[0]); })
 	.attr("cy", function (d) { return yScale(d[1]); })
@@ -122,31 +119,51 @@ var circles = svg.selectAll("circle")
 	// 	d3.select("#tooltip").remove();
 	// });
 >>>>>>> Stashed changes
+=======
+	.attr("cx", function (d) { return xScale(d.x_coord); })
+	.attr("cy", function (d) { return yScale(d.y_coord); })
+	.attr("r",  radius)
+	.style("fill", function (d) {
+		var returnColor;
+		if (d.searched === true) {
+			returnColor = "red";
+		} else {
+			returnColor = "black";
+		}
+		return returnColor;
+	});
+	// .on("mouseover", function (d) { 
+		
+	// 	var xPosition = parseFloat(d3.select(this).attr("cx")) - 14;
+	// 	var yPosition = parseFloat(d3.select(this).attr("cy")) - 14;
+>>>>>>> 24be3cb... fix simserver clusterfuck
 
-		d3.select("#tooltip")
-			.style("left", xPosition + "px")
-			.style("top", yPosition + "px")
-			.select("#value")
-			.text(d)
+	// 	d3.select("#tooltip")
+	// 		.style("left", xPosition + "px")
+	// 		.style("top", yPosition + "px")
+	// 		.select("#value")
+	// 		.text(d)
 
-		d3.select("#tooltip").classed("hidden", false)
+	// 	d3.select("#tooltip").classed("hidden", false)
 
-		//make it big and red
-		d3.select(this)
-		 .attr("r", 10)
-		 .attr("fill", "red"); })
+	// 	//make it big and red
+	// 	d3.select(this)
+	// 	 .transition()
+	// 	 .duration(250)
+	// 	 .attr("r", 10)
+	// 	 .attr("fill", "red"); })
 
-	.on("mouseout", function (d) { 
-		d3.select("#tooltip").classed("hidden", true)
+	// .on("mouseout", function (d) { 
+	// 	d3.select("#tooltip").classed("hidden", true)
 
-		d3.select(this)
-			.transition()
-			.duration(250)
-			.attr("r", rScale(d[1]))
-			.attr("fill", "black") } );
+	// 	d3.select(this)
+	// 		.transition()
+	// 		.duration(250)
+	// 		.attr("r", 5)
+	// 		.attr("fill", "black") } );
 
 // var textLabels = svg.selectAll("text")
-// 	.data(dataset)
+// 	.data(mds_data)
 // 	.enter()
 // 	.append("text")
 // 	.text(function (d) { return d[0] + "," + d[1];})
