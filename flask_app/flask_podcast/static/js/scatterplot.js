@@ -52,11 +52,28 @@ var circles = svg.selectAll("circle")
 		return returnColor;
 	})
 
-	.on("mouseover", tip.show)
+	.on("mouseover", function (d) {
+		// $.scrollTo("#" + d.id, 2000, 
+		// 	{offset: -300, 
+		// 		onAfter: 
+		// 		function () {
+		// 			$("#" + d.id).effect("highlight", {color: "#9900cc"}, 3000);
+		// 		}
+		// 	});
+
+		tip.show(d);
+		
+	} )
 	.on("mouseout", tip.hide)
 	;
 
 
+	// .on("mouseover", function (d) {
+	// 	$("#" + d.id).scrollintoview({
+	// 		duration: 1000
+	// 	});
 
+	// 	tip.show(d);
+	// } )
 
 

@@ -84,7 +84,6 @@
     <div id="scatter-container">
       <div id="scatter-title">
         <h3>Explore the top 100 podcasts</h3>
-        <h4>Click to re-run thesauropodus on the selected podcast</h4>
       </div>
       <div  id="scatterplot" style="margin-top:30px">
       </div>
@@ -101,7 +100,10 @@
           <td class="vert-align"><img src="{{result['artwork_url100']}}", height="50", width="50"></td>
           <td class="vert-align">{{ result['similarity'] }}</td>
           <td class="vert-align">{{ result['name']}}</td>
-          <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a></td>
+          <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-block btn-xs btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a>
+
+          <a href="../output?id={{ result['id']}}" class="btn btn-block btn-xs btn-default"><span class="glyphicon glyphicon-retweet"></span> View Similar</a>
+          </td>
         </tr>
           {% endfor %}
         </tbody>
@@ -113,9 +115,17 @@
 
 
 </body>
-<!-- Placed at the end of the document so the pages load faster -->
+
+<!-- jquery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- <script src="../static/js/jquery.scrollintoview.min.js"></script> -->
+
+<!-- bootstrap -->
 <script src="static/js/bootstrap.min.js"></script>
+
 <!-- d3.js -->
 <script type="text/javascript" src="../static/js/d3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>

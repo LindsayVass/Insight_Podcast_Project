@@ -1,8 +1,7 @@
-from flask import render_template
+from flask import render_template, request
 from flask_podcast import app
 import pandas as pd
 import psycopg2
-from flask import request
 import preprocess_text as pp
 import html
 import numpy as np 
@@ -12,7 +11,7 @@ from json import dumps
 from gensim import corpora, models, similarities
 import get_similarity
 from run_mds import run_mds
-from flask import jsonify
+
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_STATIC = os.path.join(APP_ROOT, 'static')

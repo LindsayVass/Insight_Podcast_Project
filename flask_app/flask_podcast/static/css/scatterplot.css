@@ -12,6 +12,7 @@
 	border-radius: 2px;
 	border-color: #000000;
   width: 40%;
+  position: fixed;
 }
 
 /* Creates a small triangle extender for the tooltip */
