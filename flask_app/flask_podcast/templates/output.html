@@ -97,11 +97,12 @@
       <tbody>
         <tr><th></th><th>Similarity</th><th>Name</th><th></th></tr>
         {% for result in podcast_results_no_self %}
-        <tr>
+        <tr id="{{result['id']}}">
           <td class="vert-align"><img src="{{result['artwork_url100']}}", height="50", width="50"></td>
           <td class="vert-align">{{ result['similarity'] }}</td>
           <td class="vert-align">{{ result['name']}}</td>
-          <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a></td></tr>
+          <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a></td>
+        </tr>
           {% endfor %}
         </tbody>
       </table>

@@ -136,7 +136,7 @@ def podcast_output():
   # convert to jsonlike
   podcast_results = []
   for i in range(num_results):
-    podcast_results.append(dict(similarity=merge_results.iloc[i]['similarity'], name=merge_results.iloc[i]['name'].decode('utf-8'), view_url=merge_results.iloc[i]['view_url'], artwork_url100=merge_results.iloc[i]['artwork_url100']))
+    podcast_results.append(dict(similarity=merge_results.iloc[i]['similarity'], name=merge_results.iloc[i]['name'].decode('utf-8'), view_url=merge_results.iloc[i]['view_url'], artwork_url100=merge_results.iloc[i]['artwork_url100'], id=merge_results.iloc[i]['id']))
 
   podcast_results_no_self = podcast_results[1:]
 
@@ -149,6 +149,7 @@ def podcast_output():
   cursor.execute(query % podcast_id)
   podcast_name = cursor.fetchall()
   podcast_name = podcast_name[0][0].decode('utf-8')
+
 
   return render_template("output.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
   
