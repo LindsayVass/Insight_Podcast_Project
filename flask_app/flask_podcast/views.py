@@ -43,6 +43,15 @@ def pd_to_json_dict(pd):
   pd = [dict([(colname, row[i]) for i, colname in enumerate(pd.columns)]) for row in pd.values]
   return pd
 
+def decimal_default(obj):
+    if isinstance(obj, decimal.Decimal):
+        return float(obj)
+    raise TypeError
+
+
+
+
+
 @app.route('/typeahead')
 def typeahead_input():
   return render_template("typeahead.html")
@@ -103,7 +112,7 @@ def podcast_output():
   
   # query the db
   query = """
-  SELECT name, view_url, artwork_url100, id
+  SELECT name, view_url, artwork_url100, id, raw_summary
   FROM podcast
   WHERE id IN %s;
   """
@@ -113,12 +122,13 @@ def podcast_output():
   query_results = cursor.fetchall()
 
   # convert to dataframe
-  columnNames = ['name', 'view_url', 'artwork_url100', 'id']
+  columnNames = ['name', 'view_url', 'artwork_url100', 'id', 'summary']
   podcast_results = pd.DataFrame(columns=columnNames)
   podcast_results['name'] = [x[0] for x in query_results]
   podcast_results['view_url'] = [x[1] for x in query_results]
   podcast_results['artwork_url100'] = [x[2] for x in query_results]
   podcast_results['id'] = [x[3] for x in query_results]
+  podcast_results['summary'] = [x[4] for x in query_results]
 
   # merge with mds data
   merge_results = pd.merge(mds_df, podcast_results, how = 'inner', left_on='podcast_id', right_on='id')
@@ -130,8 +140,8 @@ def podcast_output():
 
   podcast_results_no_self = podcast_results[1:]
 
-  del(merge_results['view_url'])
-  del(merge_results['artwork_url100'])
+  merge_results['name'] = [x.replace('"', "'") for x in merge_results['name']]
+  merge_results['summary'] = [str(x).replace('"', "'") for x in merge_results['summary']]
   merge_dict = pd_to_json_dict(merge_results)
 
   # get name of searched podcast
@@ -140,6 +150,5 @@ def podcast_output():
   podcast_name = cursor.fetchall()
   podcast_name = podcast_name[0][0].decode('utf-8')
 
-  # return render_template("output.html", podcast_results=podcast_results, search_name=podcast_name, pod_ids=pod_ids, mds_data=mds_data)
   return render_template("output.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
   

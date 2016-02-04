@@ -6,16 +6,16 @@
 /* Style tooltips */
 .d3-tip {
 	line-height: 1;
-	font-weight: bold;
 	color: #FFFFFF;
 	padding: 12px;
 	background: #68605B;
 	border-radius: 2px;
 	border-color: #000000;
+  width: 40%;
 }
 
 /* Creates a small triangle extender for the tooltip */
-.d3-tip:after {
+/*.d3-tip:after {
   box-sizing: border-box;
   display: inline;
   font-size: 10px;
@@ -25,12 +25,13 @@
   content: "\25BC";
   position: absolute;
   text-align: center;
-}
+}*/
 
 /* Style northward tooltips differently */
-.d3-tip.n:after {
+/*.d3-tip.n:after {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
 }
 
+*/
