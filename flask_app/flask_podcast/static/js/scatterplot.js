@@ -1,7 +1,22 @@
+
+
 var w = 500;
 var h = 500;
 var padding = 30;
 var radius = 5;
+
+if (json_error) {
+	var svg = d3.select("#scatterplot")
+		.append("svg")
+		.attr("width", w)
+		.attr("height", w)
+		.append("text")
+		.attr("x", w/2)
+		.attr("y", h/2)
+		.text("Oops something went wrong.")
+} else {
+
+
 
 
 var xScale = d3.scale.linear()
@@ -68,12 +83,4 @@ var circles = svg.selectAll("circle")
 	;
 
 
-	// .on("mouseover", function (d) {
-	// 	$("#" + d.id).scrollintoview({
-	// 		duration: 1000
-	// 	});
-
-	// 	tip.show(d);
-	// } )
-
-
+}

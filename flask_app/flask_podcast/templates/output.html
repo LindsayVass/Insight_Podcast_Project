@@ -39,7 +39,13 @@
  .replace(/\\f/g, "\\f")
  .replace(/[\u0000-\u0019]+/g,""); 
 
- mds_data = JSON.parse(mds_data);
+var json_error;
+ try {
+  mds_data = JSON.parse(mds_data);
+} catch(e) {
+  json_error = e;
+}
+ 
 
  </script>
  

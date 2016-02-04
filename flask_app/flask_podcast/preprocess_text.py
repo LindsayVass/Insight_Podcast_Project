@@ -1,15 +1,7 @@
-
-# coding: utf-8
-
-# In[1]:
-
 import re
 from nltk.tokenize import RegexpTokenizer
 from stop_words import get_stop_words
 from nltk.stem.porter import PorterStemmer
-
-
-# In[2]:
 
 # create list of stop words
 stop = get_stop_words('en')
@@ -27,8 +19,6 @@ other = ['nan', 'podcast']
 [stop.append(unicode(x)) for x in other]
 
 
-# In[13]:
-
 def remove_stop(text, stop):
     new_text = []
     for word in text:
@@ -37,19 +27,13 @@ def remove_stop(text, stop):
     return new_text
 
 
-# In[4]:
-
 # create tokenizer
 tokenizer = RegexpTokenizer(r'\w+')
 
 
-# In[20]:
-
 # create stemmer
 p_stemmer = PorterStemmer()
 
-
-# In[21]:
 
 def stem_list(text, p_stemmer):
     new_list = []
@@ -57,8 +41,6 @@ def stem_list(text, p_stemmer):
         new_list.append(p_stemmer.stem(word))
     return new_list
 
-
-# In[25]:
 
 def preprocess_text(text):
     # remove mixed alphanumeric
