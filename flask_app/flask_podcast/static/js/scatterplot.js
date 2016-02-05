@@ -82,5 +82,10 @@ var circles = svg.selectAll("circle")
 	.on("mouseout", tip.hide)
 	;
 
+var rows = d3.selectAll("tr")
+	.on("mouseover", function (d) {
+		console.log(d);
+	})
+
 
 }

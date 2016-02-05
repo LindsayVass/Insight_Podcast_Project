@@ -144,7 +144,7 @@ def keyword_output():
   merge_dict = pd_to_json_dict(scatter_results)
 
 
-  return render_template("output.html", podcast_results_no_self=podcast_results, podcast_results=merge_dict, search_name=search)
+  return render_template("output_force_layout.html", podcast_results_no_self=podcast_results, podcast_results=merge_dict, search_name=search)
 
 @app.route('/output')
 def podcast_output():
@@ -231,5 +231,5 @@ def podcast_output():
   podcast_name = podcast_name[0][0].decode('utf-8')
 
 
-  return render_template("output.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
-  
+  # return render_template("output.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
+  return render_template("output_force_layout.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
