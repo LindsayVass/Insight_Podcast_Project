@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+body {
+	padding-top: 70px;
+	color: white;
+}
+a {
+	color: #abc915;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Thesauropodus Logo -->
+<div class="col-md-4">
+	<img alt="thesauropodus" src="../static/images/thesauropodus.png" id="thesauropodus">
+</div>
+
+<div class="col-md-8" style="font-size: 18px;">
+	<p>
+		Hi, I'm Lindsay Vass and I created thesauropod.us in three weeks while I was an Insight Data Science Fellow. I'm an avid podcast listener myself and wanted a better way to find new podcasts to listen to. I used natural language processing techniques to calculate the similarity between podcasts based on the similarity of their content.
+	</p>
+
+	<p> <br>
+		<strong>Under the Hood:</strong>
+		<br>
+		<br>
+		<em>Data:</em> Podcast descriptions, episode titles, and episode descriptions were scraped from the iTunes website and API and stored in a PostgreSQL database. I pre-processed the text data by tokenizing it, removing common words and phrases, and stemming each word.
+		<br>
+		<br>
+		<em>Algorithm:</em> I performed two transformations on the word data using gensim. I first used TF-IDF to give rare words a higher value than frequent words, and then filtered my word list so that each word appeared in at least 5 podcasts but no more than 20% of podcasts. Second, I used Latent Semantic Indexing (LSI) to reduce my feature set from 50,000+ words to 100 topics. Finally, I measured the similarity between pairs of podcasts by calculating the cosine of the angle between their topic vectors.
+		<br>
+		<br>
+		<em>Backend:</em> This project is coded in Python and relies on a number of packages for the heavy lifting, including BeautifulSoup, PycURL, NLTK, pandas, and gensim. I used psycopg2 to interface with PostgreSQL.
+		<br>
+		<br>
+		<em>Frontend:</em> Brought to you by Flask, Bootstrap, D3, JavaScript, Twitter typeahead.js, and a smattering of jQuery, deployed on AWS.
+	</p>
+
+	<p>
+		The source code is available on <a href="https://github.com/LindsayVass/Insight_Podcast_Project">GitHub</a>.
+	</p>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}
