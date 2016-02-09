@@ -8,13 +8,9 @@
  <meta name="author" content="">
  <link rel="icon" href="../../favicon.ico">
 
- <title>Starter Template for Bootstrap</title>
+ <title>thesauropod.us</title>
 
- <!-- Bootstrap core CSS -->
- <link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
- <!-- Custom styles for this template -->
- <link href="../static/css/scrollable_menu.css" rel="stylesheet">
 
  <style>
  .form-group{
@@ -24,6 +20,7 @@
 .form-control {
   width: 50%;
 }
+
 </style>
 
 </head>
@@ -51,13 +48,13 @@
    </div>
  </div>
  <br><br>
- <div class="container">
+ <div class="container" id="input-data">
 
   <div class="text-center">
     <h1>thesauropod.us</h1>
     <h4>a thesaurus for podcasts</h4>
 
-<br><br>
+    <br><br>
     <div class="form-group" id="remote">
       <label for="typeahead">Give it your favorite podcast</label>
       <br>
@@ -68,68 +65,73 @@
     </div> -->
   </div>
 
-    <br><br>
+  <br><br>
 
-    <div class="form-group">
-      <form action="{{url_for('keyword_output')}}" method="get">
+  <div class="form-group">
+    <form action="{{url_for('keyword_output')}}" method="get">
       <label for="keyword">Or just tell it what you like</label>
       <input type="text" class="form-control" id="keyword" name="keyword" placeholder="cats">
       <button type="submit" class="btn btn-primary" id="keyword-submit">Submit</button>
-      </form>
-    </div>
-
+    </form>
   </div>
+
+</div>
 </div> 
 
-   
-   <script src="../static/js/jquery-1.12.0.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link href="../static/css/bootstrap.min.css" rel="stylesheet">
 
-   <script src="../static/js/bootstrap.min.js"></script>
-   <script src="../static/js/typeahead.bundle.js"></script>
-   <link href="../static/css/lavish-bootstrap.css" rel="stylesheet">
-   <link href="../static/css/scrollable_menu.css" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="../static/css/scrollable_menu.css" rel="stylesheet">
 
-   <script type="text/javascript">
+<link href="../static/css/background.css" rel="stylesheet">
+
+<script src="../static/js/jquery-1.12.0.min.js"></script>
+
+<script src="../static/js/typeahead.bundle.js"></script>
+<!-- <link href="../static/css/lavish-bootstrap.css" rel="stylesheet"> -->
+
+<script type="text/javascript">
 
 
-   var podcastResults = new Bloodhound({
-    datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: {
-      url: '{{url_for('autocomplete')}}?q=%QUERY',
-      wildcard: '%QUERY'
-    }
-  });
+var podcastResults = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: '{{url_for('autocomplete')}}?q=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
 
   //  var keyword;
   //  $("#keyword-submit").click(function() {
   //   console.log( $("#keyword").val())
   // });
 
-   var searchVal;
-   $('#remote .form-control').keyup(function(){ searchVal = $(this).val();} );
+var searchVal;
+$('#remote .form-control').keyup(function(){ searchVal = $(this).val();} );
 
-   $('#remote .form-control').typeahead({
-    highlight: true,
-    minLength: 3
-  },
-  {  
-    limit: 10,
-    display: 'name',
-    source: podcastResults,
-    templates: {
-      suggestion: function(data){
-        return '<p><a href="{{url_for('podcast_output')}}?id=' + data.id + '">' + data.name + '</a></p>';
-      }, 
-      empty: '<p>No podcasts found.</p>',
-      footer: function() {
-        return '<p><a href="{{url_for('podcast_check_input')}}?podcast_name='+ searchVal + '">View all results</a></p>'
-      }
+$('#remote .form-control').typeahead({
+  highlight: true,
+  minLength: 3
+},
+{  
+  limit: 10,
+  display: 'name',
+  source: podcastResults,
+  templates: {
+    suggestion: function(data){
+      return '<p><a href="{{url_for('podcast_output')}}?id=' + data.id + '">' + data.name + '</a></p>';
+    }, 
+    empty: '<p>No podcasts found.</p>',
+    footer: function() {
+      return '<p><a href="{{url_for('podcast_check_input')}}?podcast_name='+ searchVal + '">View all results</a></p>'
     }
-  });
+  }
+});
 
-   </script>
+</script>
 
 
- </body>
- </html>
+</body>
+</html>
