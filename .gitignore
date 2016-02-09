@@ -15,3 +15,6 @@ flask_app/flask_podcast/static/data/distance_matrix.npy
 *.Rda
 .RData
 .Rhistory
+*.csv
+*.png
+*.pdf
