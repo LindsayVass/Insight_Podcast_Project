@@ -5,6 +5,10 @@ var height = 500;
 var padding = 30;
 var radius = 5;
 
+var regularColor = "#FFFFFF";
+var specialColor = "#000000";
+var linkColor = "#abc915";
+
 if (json_error) {
 	var svg = d3.select("#scatterplot")
 	.append("svg")
@@ -16,6 +20,8 @@ if (json_error) {
 	.text("Oops something went wrong.")
 } else {
 
+
+
 // Assign mds_data to nodes
 var nodes = mds_data;
 
@@ -26,14 +32,6 @@ for (var i = 1; i < nodes.length; i++)
 				target: i, 
 				similarity: nodes[i].similarity});
 
-// set up tool tips
-var tip = d3.tip()
-	.attr('class', 'd3-tip')
-	.direction('s')
-	.offset([10, 0])
-	.html(function(d) {
-		return "<strong>" + d.name + "</strong><br>" + d.summary;
-	});
 
 // Set up SVG container
 var svg = d3.select("#scatterplot").append('svg')
@@ -44,7 +42,10 @@ var svg = d3.select("#scatterplot").append('svg')
 	.attr("viewBox", "0 0 " + width + " " + height)
 	.attr("preserveAspectRatio", "xMidYMid meet");
 
-svg.call(tip);
+
+// Set up a 2nd svg to hold description
+var par = d3.select("#podcast-description")
+	.append("div");
 
 // Create force layout object
 var force = d3.layout.force()
@@ -88,16 +89,27 @@ var rows = d3.selectAll("tr")
 	d3.select("circle#node" + rowId)
 		.transition()
 		.duration(500)
-		.style("fill", "#9900cc")
+		.style("fill", specialColor)
+		.style("stroke", "white")
 		.attr("r", width/50)
+
+	var matchingNode = d3.select("#node" + rowId);
+	var nodeData = matchingNode[0][0].__data__;
+	
+	//console.log(nodeData.name);
+
+	$("#podcast-description").html("<strong>" + nodeData.name + 
+		"</strong><br>" + nodeData.summary);
 })
 .on("mouseout", function (d) {
 	var rowId = d3.select(this).attr("id");
 	d3.select("circle#node" + rowId)
 		.transition()
 		.duration(500)
-		.style("fill", "black")
+		.style("fill", regularColor)
+		.style("stroke", "black")
 		.attr("r", width/100)
+	var matchingNode = d3.select("#node" + rowId);
 });
 
 // Define a function to call when force layout is calculating
@@ -111,27 +123,16 @@ force.on("tick", function() {
 		.attr("summary", function(d) { return d.summary; })
 		.attr("id", function(d) { return "node" + d.id; })
 		.attr("searched", function(d) { return d.searched; })
+		.style("stroke", "black")
 		.style("fill", function (d) {
 		var returnColor;
 		if (d.searched === true) {
-			returnColor = "#9900cc";
+			returnColor = specialColor;
 		} else {
-			returnColor = "black";
+			returnColor = regularColor;
 		}
 		return returnColor;
 		})
-		.on("mouseover", function (d) {
-		// $.scrollTo("#" + d.id, 2000, 
-		// 	{offset: -300, 
-		// 		onAfter: 
-		// 		function () {
-		// 			$("#" + d.id).effect("highlight", {color: "#9900cc"}, 3000);
-		// 		}
-		// 	});
-		console.log(d);
-		tip.show(d);
-		} )
-		.on("mouseout", tip.hide);
 
 	// update position of links
 	link.attr("x1", function(d) { return d.source.x; })
@@ -139,24 +140,20 @@ force.on("tick", function() {
 		.attr("x2", function(d) { return d.target.x; })
 		.attr("y2", function(d) { return d.target.y; })
 		.attr("stroke-width", 1)
-		.attr("stroke", "white");
+		.attr("stroke", linkColor);
 });
 
 force.start();
 
-
-
-// var table = d3.select("table")
-// 	.append("svg")
-// 	.call(tip)
-
-// var rows = table.selectAll("tr")
-// 	.on("mouseover", function (d) {
-// 		var rowId = d3.select(this).attr("id");
-
-// 		var matchingNode = d3.select("#node" + rowId);
-// 		// console.log(matchingNode[0][0].__data__);
-// 		tip.show(matchingNode[0][0].__data__, document.getElementById("#node" + rowId));
-// 	});
-
 }
+
+// Make sure description doesn't go below bottom of window
+$( document ).ready(function() {
+  $('#podcast-description').height(function(index, height) {
+  	var newHeight = window.innerHeight - $(this).offset().top - 50;
+  	// console.log("window.innerheight " + window.innerHeight);
+  	// console.log("this.offset" + $(this).offset().top);
+  	// console.log("newheight " + newHeight);
+    $(this).css('height', newHeight);
+  });
+});
