@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta name="description" content="">
+ <meta name="author" content="">
+ <link rel="icon" href="../../favicon.ico">
+
+ <title>thesauropodus results</title>
+
+ <!-- Bootstrap core CSS -->
+ <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+ 
+ <!-- Color theme -->
+ <link href="../static/css/lavish-bootstrap.css" rel="stylesheet">
+ 
+ <!-- d3 CSS -->
+ <link href="../static/css/scatterplot.css" rel="stylesheet">
+
+ <!-- table CSS -->
+ <link href="../static/css/table.css" rel="stylesheet">
+
+ 
+ <!-- import JSON data -->
+ <script>
+ var mds_data = '{{ podcast_results|tojson }}';
+
+ // preserve newlines, etc - use valid JSON
+ mds_data = mds_data.replace(/\\n/g, "\\n")  
+ .replace(/\\'/g, "\\'")
+ .replace(/\\"/g, '\\"')
+ .replace(/\\&/g, "\\&")
+ .replace(/\\r/g, "\\r")
+ .replace(/\\t/g, "\\t")
+ .replace(/\\b/g, "\\b")
+ .replace(/\\f/g, "\\f")
+ .replace(/[\u0000-\u0019]+/g,""); 
+
+var json_error;
+ try {
+  mds_data = JSON.parse(mds_data);
+} catch(e) {
+  json_error = e;
+}
+ 
+
+ </script>
+
+</head>
+
+<body>
+
+  <!-- Navigation bar -->
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="container">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand" href="#">thesauropodus</a>
+     </div>
+     <div class="collapse navbar-collapse">
+       <ul class="nav navbar-nav">
+         <li class="active"><a href="#">Home</a></li>
+         <li><a href="#about">About</a></li>
+         <li><a href="#contact">Contact</a></li>
+       </ul>
+     </div>
+   </div>
+ </div>
+ <br><br>
+
+ <!-- Table & Scatterplot -->
+ <div class="container">
+
+  <div class="col-md-6 pull-right" >
+    <div id="scatter-container">
+      <div id="scatter-title">
+        <h3>Explore the top 100 podcasts</h3>
+      </div>
+      <div  id="scatterplot">
+      </div>
+      <div id="scatter-description">
+        <p id="podcast-description"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <h3>Podcasts Like {{ search_name }}:</h3>
+    <table class="table table-hover">
+      <tbody>
+        <!-- <tr><th></th><th>Similarity</th><th>Name</th><th></th></tr> -->
+        {% for result in podcast_results_no_self %}
+        <tr id="{{result['id']}}">
+          <td class="vert-align"><img src="{{result['artwork_url100']}}", height="50", width="50"></td>
+          <td class="vert-align">{{ result['similarity'] }}</td>
+          <td class="vert-align">{{ result['name']}}</td>
+          <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-block btn-xs btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a>
+
+          <a href="../output?id={{ result['id']}}" class="btn btn-block btn-xs btn-default"><span class="glyphicon glyphicon-retweet"></span> View Similar</a>
+          </td>
+        </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </div>
+
+  </div>
+
+
+
+</body>
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- <script src="../static/js/jquery.scrollintoview.min.js"></script> -->
+
+<!-- bootstrap -->
+<script src="static/js/bootstrap.min.js"></script>
+
+<!-- d3.js -->
+<script type="text/javascript" src="../static/js/d3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<!-- <script type="text/javascript" src="../static/js/scatterplot.js"></script> -->
+<script type="text/javascript" src="../static/js/force_layout.js"></script>
+</html>
