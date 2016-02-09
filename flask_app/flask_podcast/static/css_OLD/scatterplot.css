@@ -1,0 +1,14 @@
+/* Style title */
+#scatter-title {
+	text-align: center;
+  width: 100%;
+}
+
+ #scatter-container {
+  position: fixed;
+}
+
+#scatter-description,#podcast-description {
+  width: 500px;
+  display:block;
+}
