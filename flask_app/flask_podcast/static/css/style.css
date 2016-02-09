@@ -1,0 +1,81 @@
+body {
+	padding-top: 30px;
+	background: rgba(79,94,4,1);
+	background: -moz-linear-gradient(left, rgba(79,94,4,1) 0%, rgba(125,145,10,1) 50%, rgba(79,94,4,1) 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, rgba(79,94,4,1)), color-stop(50%, rgba(125,145,10,1)), color-stop(100%, rgba(79,94,4,1)));
+	background: -webkit-linear-gradient(left, rgba(79,94,4,1) 0%, rgba(125,145,10,1) 50%, rgba(79,94,4,1) 100%);
+	background: -o-linear-gradient(left, rgba(79,94,4,1) 0%, rgba(125,145,10,1) 50%, rgba(79,94,4,1) 100%);
+	background: -ms-linear-gradient(left, rgba(79,94,4,1) 0%, rgba(125,145,10,1) 50%, rgba(79,94,4,1) 100%);
+	background: linear-gradient(to right, rgba(79,94,4,1) 0%, rgba(125,145,10,1) 50%, rgba(79,94,4,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f5e04', endColorstr='#4f5e04', GradientType=1 );
+}
+
+.navbar-default {
+  background-color: #000000;
+  border-color: #abc915;
+}
+.navbar-default .navbar-brand {
+  color: #ffffff;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #abc915;
+}
+.navbar-default .navbar-text {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #abc915;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #000000;
+  background-color: #abc915;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #000000;
+  background-color: #abc915;
+}
+.navbar-default .navbar-toggle {
+  border-color: #abc915;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #abc915;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #ffffff;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #ffffff;
+}
+.navbar-default .navbar-link {
+  color: #ffffff;
+}
+.navbar-default .navbar-link:hover {
+  color: #000000;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #ffffff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #000000;
+    background-color: #abc915;
+  }
+}

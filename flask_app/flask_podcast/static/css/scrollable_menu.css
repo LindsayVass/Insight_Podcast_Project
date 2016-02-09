@@ -1,12 +1,18 @@
-/*#remote .tt-menu {
-  max-height: 250px;
-  width:500px;
-  overflow-y: auto;
-}*/
+@media only screen and (min-width: 320px) and (max-width: 750px) { 
+  #submit-container {
+    padding-top: 50px; 
+  }
+}
+
+@media only screen and (min-width: 990px) { 
+  #logo {
+    padding-bottom: 30px; 
+  }
+}
 
 span.twitter-typeahead .tt-menu,
 span.twitter-typeahead .tt-dropdown-menu {
-  position: absolute;
+  /*position: relative;*/
   top: 100%;
   left: 0;
   z-index: 1000;
@@ -25,6 +31,8 @@ span.twitter-typeahead .tt-dropdown-menu {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
+  /*height: 250px;*/
+  overflow-y: auto;
 }
 span.twitter-typeahead .tt-suggestion {
   display: block;
@@ -41,7 +49,7 @@ span.twitter-typeahead .tt-suggestion:focus {
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #337ab7;
+  background-color: #abc915;
 }
 .input-group.input-group-lg span.twitter-typeahead .form-control {
   height: 46px;

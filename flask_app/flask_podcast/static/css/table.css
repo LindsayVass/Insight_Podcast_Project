@@ -1,7 +1,61 @@
 .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-  background-color: #A19D9C;
+  background-color: #abc915;
+  color: black;
 }
 
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
+    color: black;
+}
+
+h3 {
+	color: white;
+}
+
+p {
+	color: white;
+}
+
+body {
+	padding-top: 50px;
+}
+
+#podcast-description {
+	overflow-y: auto;
+	min-height: 100px;
+	/*position:relative;*/
+}
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 15px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border: 2px double #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #000000;
+}
+::-webkit-scrollbar-track {
+  background: #5b660c;
+  border: 2px double #ffffff;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #5b660c;
+}
+::-webkit-scrollbar-track:active {
+  background: #5b660c;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
