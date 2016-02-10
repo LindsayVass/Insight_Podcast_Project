@@ -71,7 +71,7 @@ def podcast_check_input():
   return render_template("check_input.html", name_results=name_results)
 
 @app.route('/output')
-def podcast_output_simserver():
+def podcast_output():
   num_results = 100
 
   podcast_id = request.args.get('id')
