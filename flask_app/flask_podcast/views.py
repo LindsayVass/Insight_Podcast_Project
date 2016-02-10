@@ -27,14 +27,6 @@ cursor = con.cursor()
 # load simserver
 server = Pyro4.Proxy(Pyro4.locateNS().lookup('gensim.testserver'))
 
-# load gensim data
-corpus = corpora.MmCorpus(os.path.join(APP_DATA, 'corpus_tfidf.mm'))
-lsi = models.LsiModel.load(os.path.join(APP_DATA, 'model.lsi'))
-index = similarities.MatrixSimilarity.load(os.path.join(APP_DATA, 'tfidf_lsi_similarities.index'))
-id_mapping = pd.read_pickle(os.path.join(APP_DATA, 'podcast_id_to_gensim_id.pkl'))
-dictionary = corpora.Dictionary.load(os.path.join(APP_DATA, 'dictionary.dict'))
-
-
 def pg_int_array(the_list):
   return '(' + ','.join(the_list) + ')'
 
@@ -153,7 +145,7 @@ def podcast_output_simserver():
   return render_template("output_force_layout.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
 
 @app.route('/keyword_output', methods=['GET'])
-def keyword_output_simserver():
+def keyword_output():
   num_results=100
 
   search = request.args.get('keyword')
