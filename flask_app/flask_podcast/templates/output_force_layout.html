@@ -7,7 +7,9 @@
  <!-- table CSS -->
  <link href="../static/css/table.css" rel="stylesheet">
 
- 
+<!-- star CSS -->
+ <link href="../static/css/star-rating.css" media="all" rel="stylesheet" type="text/css">
+
  <!-- import JSON data -->
  <script>
  var mds_data = '{{ podcast_results|tojson }}';
@@ -58,7 +60,7 @@ var json_error;
         {% for result in podcast_results_no_self %}
         <tr id="{{result['id']}}">
           <td class="vert-align"><img src="{{result['artwork_url100']}}", height="50px", width="50px"></td>
-          <td class="vert-align">{{ result['similarity'] }}</td>
+          <td class="vert-align"><input value="{{ result['similarity'] }}" type="number" class="similarity"></td>
           <td class="vert-align">{{ result['name']}}</td>
           <td class="vert-align"><a href="{{ result['view_url'] }}" class="btn btn-block btn-xs btn-default" target="_blank"><span class="glyphicon glyphicon-headphones"></span> Listen on iTunes</a>
 
@@ -74,8 +76,27 @@ var json_error;
 {% endblock %}
 
 {% block scripts %}
-<!-- d3.js -->
+<!-- d3 -->
 <script type="text/javascript" src="../static/js/d3.min.js"></script>
 
+<!-- link table to scatter -->
 <script type="text/javascript" src="../static/js/force_layout.js"></script>
+
+<!-- star ratings -->
+<script type="text/javascript" src="../static/js/star-rating.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $(".similarity").rating( {
+    min: 0,
+    max: 1,
+    step: 0.25,
+    size: 'xs',
+    showClear: false,
+    showCaption: false,
+    disabled: true,
+    readonly: true
+  });
+});
+</script>
 {% endblock %}
