@@ -46,13 +46,13 @@ pTop10 <- genreSummary %>%
   top_n(10) %>%
   ggplot(aes(x = genre_name, y = Proportion)) +
   geom_bar(stat='identity') +
-  geom_text(aes(x = genre_name, y = 0.01, label = genre_name, hjust = 0), colour = "white", size = 4.5) +
+  geom_text(aes(x = genre_name, y = 0.01, label = genre_name, hjust = 0), colour = "white", size = 7) +
   scale_y_continuous(labels = scales::percent) +
   coord_flip() +
   theme_fivethirtyeight() +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
-        axis.text.x = element_text(size=18),
+        axis.text.x = element_text(size=24),
         axis.title.x = element_text(size=18),
         axis.title.y = element_text(size=18)) 
 ggsave('r_plots/genre_counts_top10.pdf', width = 13, height = 10)
