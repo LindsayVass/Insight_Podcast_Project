@@ -20,7 +20,18 @@
 
  <!-- import JSON data -->
  <script>
- var mds_data = {{ podcast_results|safe}};
+ var mds_data = '{{ podcast_results|tojson }}';
+ 
+ // preserve newlines, etc - use valid JSON
+ mds_data = mds_data.replace(/\\n/g, "\\n")  
+ .replace(/\\'/g, "\\'")
+ .replace(/\\"/g, '\\"')
+ .replace(/\\&/g, "\\&")
+ .replace(/\\r/g, "\\r")
+ .replace(/\\t/g, "\\t")
+ .replace(/\\b/g, "\\b")
+ .replace(/\\f/g, "\\f")
+ .replace(/[\u0000-\u0019]+/g,""); 
 
 var json_error;
  try {
