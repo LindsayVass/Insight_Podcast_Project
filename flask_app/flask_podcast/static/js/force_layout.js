@@ -8,7 +8,7 @@ var radius = 5;
 var regularColor = "#FFFFFF";
 var specialColor = "#000000";
 var linkColor = "#abc915";
-
+var json_error = "";
 if (json_error) {
 	var svg = d3.select("#scatterplot")
 	.append("svg")

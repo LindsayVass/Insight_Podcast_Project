@@ -1,16 +1,13 @@
-from flask import render_template, request, Response
+from flask import render_template, request, Response, jsonify
 from flask_podcast import app
 import pandas as pd
 import psycopg2
 import preprocess_text as pp
-import html
-import numpy as np 
-from sklearn import manifold
 import os
-from json import dumps
 from gensim import corpora, models, similarities
-import get_similarity
 import Pyro4
+from json import dumps
+
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_STATIC = os.path.join(APP_ROOT, 'static')
@@ -18,6 +15,7 @@ APP_DATA = os.path.join(APP_STATIC, 'data')
 
 # set up database connection
 user = 'lindsay'          
+#user = 'ubuntu'
 host = 'localhost'
 dbname = 'podcast'
 con = None
@@ -38,6 +36,13 @@ def decimal_default(obj):
     if isinstance(obj, decimal.Decimal):
         return float(obj)
     raise TypeError
+
+def special_replace(text):
+    text = text.replace('\n', ' ')
+    text = text.replace('\r', ' ')
+    text = text.replace('\t', ' ')
+    text = text.replace('\f', ' ')
+    return text
 
 @app.route('/')
 def home():
@@ -113,6 +118,7 @@ def podcast_output():
   podcast_results['artwork_url100'] = [x[2] for x in query_results]
   podcast_results['id'] = [x[3] for x in query_results]
   podcast_results['summary'] = [x[4] for x in query_results]
+  podcast_results['summary'] = [special_replace(x) for x in podcast_results['summary']]
 
   # merge with pca data
   sim_df['id'] = [int(x) for x in sim_df['id']]
@@ -122,18 +128,19 @@ def podcast_output():
   # convert to jsonlike
   podcast_results = []
   for i in range(num_results):
-    podcast_results.append(dict(similarity=table_results.iloc[i]['similarity'], name=table_results.iloc[i]['name'].decode('utf-8'), view_url=table_results.iloc[i]['view_url'], artwork_url100=table_results.iloc[i]['artwork_url100'], id=table_results.iloc[i]['id']))
+    podcast_results.append(dict(similarity=table_results.iloc[i]['similarity'], name=table_results.iloc[i]['name'].decode('utf-8').encode('ascii', 'ignore'), view_url=table_results.iloc[i]['view_url'], artwork_url100=table_results.iloc[i]['artwork_url100'], id=table_results.iloc[i]['id']))
 
   podcast_results_no_self = podcast_results[1:]
 
-  print podcast_results_no_self
+  #print podcast_results_no_self
 
   scatter_results['name'] = [str(x).replace('"', "'") for x in scatter_results['name']]
   scatter_results['summary'] = [str(x).replace('"', "'") for x in scatter_results['summary']]
-  scatter_results['summary'] = [x.decode('utf-8') for x in scatter_results['summary']]
+  scatter_results['summary'] = [x.decode('utf-8').encode('ascii', 'ignore') for x in scatter_results['summary']]
   
-  merge_dict = pd_to_json_dict(scatter_results)
-
+  #merge_dict = pd_to_json_dict(scatter_results)
+  merge_dict = scatter_results.to_json(orient="records")
+  
   # get name of searched podcast
   query = "SELECT name FROM podcast WHERE id='%s'"
   cursor.execute(query % podcast_id)
@@ -143,6 +150,13 @@ def podcast_output():
 
   # return render_template("output.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
   return render_template("output_force_layout.html", podcast_results_no_self=podcast_results_no_self, podcast_results=merge_dict, search_name=podcast_name)
+
+@app.route('/db_test')
+def db_test():
+   #sim_tuple = server.find_similar('17233')
+  query = "SELECT name FROM podcast LIMIT 10;"
+  cursor.execute(query) 
+  return "pizza"
 
 @app.route('/keyword_output', methods=['GET'])
 def keyword_output():
@@ -190,16 +204,18 @@ def keyword_output():
   # convert to jsonlike
   podcast_results = []
   for i in range(num_results):
-    podcast_results.append(dict(similarity=table_results.iloc[i]['similarity'], name=table_results.iloc[i]['name'].decode('utf-8'), view_url=table_results.iloc[i]['view_url'], artwork_url100=table_results.iloc[i]['artwork_url100'], id=table_results.iloc[i]['id']))
+    podcast_results.append(dict(similarity=table_results.iloc[i]['similarity'], name=table_results.iloc[i]['name'].decode('utf-8').encode('ascii', 'ignore'), view_url=table_results.iloc[i]['view_url'], artwork_url100=table_results.iloc[i]['artwork_url100'], id=table_results.iloc[i]['id']))
 
   podcast_results_no_self = podcast_results[1:]
 
-  print podcast_results_no_self
-
+  
   scatter_results['name'] = [str(x).replace('"', "'") for x in scatter_results['name']]
   scatter_results['summary'] = [str(x).replace('"', "'") for x in scatter_results['summary']]
-  scatter_results['summary'] = [x.decode('utf-8') for x in scatter_results['summary']]
+  scatter_results['summary'] = [x.decode('utf-8').encode('ascii', 'ignore') for x in scatter_results['summary']]
   
-  merge_dict = pd_to_json_dict(scatter_results)
+  merge_dict = scatter_results.to_json(orient="records")
+  #merge_dict = pd_to_json_dict(scatter_results)
+  #print merge_dict
 
+  #return Response(dumps(merge_dict), mimetype="text/json")
   return render_template("output_force_layout.html", podcast_results_no_self=podcast_results, podcast_results=merge_dict, search_name=search)
